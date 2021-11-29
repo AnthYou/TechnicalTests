@@ -5,7 +5,7 @@ You will have to pass the first unit tests below and write all needed tests you 
 ## Initialize the project
 
 ### 1. Create the rails app skipping tests  
-`rails new 12p5-test -T`  
+`rails new DouzepCinqTechTest -T`  
 
 ### 2. Setup RSpec  
 Go to the Gemfile and add the RSpec gem in the development and test group:  
@@ -21,15 +21,17 @@ Then setup RSpec in your app by running
 `rails generate rspec:install`  
 
 ### 3. Generate the models  
-`rails g model Parking name address status picture`  
+`rails g model Parking name address status picture_url`  
 `rails g model Place name status parking:references`  
 `rails g model DividedPlace name status place:references`  
 
-### 4. Add these lines in the db/seed.rb to populate your database
+Then run the migrations  
+`rails db:migrate`
+
+### 4. Add these lines in the db/seeds.rb to populate your database
 ```ruby
 
 # Parkings
-
 Parking.create!(
   name: 'Parking 12.5 x Gardes 5',
   address: '5 rue des Gardes, 75018, Paris',
@@ -50,11 +52,10 @@ Parking.create!(
 )
 
 # Places
-
 Parking.all.each do |parking|
   5.times do |number|
     Place.create!(
-      name: "Place #{number}",
+      name: "Place #{number + 1} - #{parking.name}",
       status: 'available',
       parking: parking
     )
@@ -63,13 +64,18 @@ end
 
 # DividedPlaces
 Place.all.each do |place|
-  DividedPlace.create!(
-    name: "Divided place #{number}",
-    status: 'available',
-    place: place
-  )
+  rand(5..8).times do |number|
+    DividedPlace.create!(
+      name: "Divided place #{number + 1} - #{place.name}",
+      status: 'available',
+      place: place
+    )
+  end
 end
 
 ```  
+
+Then run the seed  
+`rails db:seed`
 
 #### 5. Add the following specs
