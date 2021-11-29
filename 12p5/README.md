@@ -78,7 +78,7 @@ end
 Then run the seed  
 `rails db:seed`
 
-#### 5. Add the following specs  
+### 5. Add the following specs  
 spec/models/parking_spec.rb  
 ```ruby
 require 'rails_helper'
