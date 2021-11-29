@@ -4,10 +4,10 @@ The goal is to write a small webapp that find the available spots for a parking 
 You will have to pass the first unit tests below and write all needed tests you need, using the TDD workflow.
 ## Initialize the project
 
-### Create the rails app skipping tests  
+### 1. Create the rails app skipping tests  
 `rails new 12p5-test -T`  
 
-### Setup RSpec  
+### 2. Setup RSpec  
 Go to the Gemfile and add the RSpec gem in the development and test group:  
 ```ruby
 group :development, :test do
@@ -20,18 +20,57 @@ Then in your terminal, run
 Then setup RSpec in your app by running  
 `rails generate rspec:install`  
 
-### Generate the models  
+### 3. Generate the models  
 `rails g model Parking name address status picture price_per_cm:integer`  
 `rails g model Place name status parking:references`  
 `rails g model DividedPlace name status place:references`  
 
-### Add these lines in the db/seed.rb to populate your database
+### 4. Add these lines in the db/seed.rb to populate your database
 ```ruby
+
+# Parkings
+
 Parking.create!(
   name: 'Parking 12.5 x Gardes 5',
   address: '5 rue des Gardes, 75018, Paris',
   price_per_cm: 15,
   status: 'available',
-  picture: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
+  picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
 )
+Parking.create!(
+  name: 'Parking 12.5 x Pyrénées 53',
+  address: '53 rue des Pyrénées, 75020, Paris',
+  price_per_cm: 15,
+  status: 'available',
+  picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
+)
+Parking.create!(
+  name: 'Parking 12.5 x Esquirol',
+  address: '7 rue Esquirol, 75013, Paris',
+  price_per_cm: 15,
+  status: 'available',
+  picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
+)
+
+# Places
+
+Parking.all.each do |parking|
+  5.times do |number|
+    Place.create!(
+      name: "Place #{number}",
+      status: 'available',
+      parking: parking
+    )
+  end
+end
+
+# DividedPlaces
+Place.all.each do |place|
+  DividedPlace.create!(
+    name: "Divided place #{number}",
+    status: 'available',
+    place: place
+  )
+end
+
 ```  
