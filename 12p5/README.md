@@ -21,7 +21,7 @@ Then setup RSpec in your app by running
 `rails generate rspec:install`  
 
 ### 3. Generate the models  
-`rails g model Parking name address status picture price_per_cm:integer`  
+`rails g model Parking name address status picture`  
 `rails g model Place name status parking:references`  
 `rails g model DividedPlace name status place:references`  
 
@@ -33,21 +33,18 @@ Then setup RSpec in your app by running
 Parking.create!(
   name: 'Parking 12.5 x Gardes 5',
   address: '5 rue des Gardes, 75018, Paris',
-  price_per_cm: 15,
   status: 'available',
   picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
 )
 Parking.create!(
   name: 'Parking 12.5 x Pyrénées 53',
   address: '53 rue des Pyrénées, 75020, Paris',
-  price_per_cm: 15,
   status: 'available',
   picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
 )
 Parking.create!(
   name: 'Parking 12.5 x Esquirol',
   address: '7 rue Esquirol, 75013, Paris',
-  price_per_cm: 15,
   status: 'available',
   picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
 )
@@ -74,3 +71,5 @@ Place.all.each do |place|
 end
 
 ```  
+
+#### 5. Add the following specs
