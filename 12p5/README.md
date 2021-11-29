@@ -4,13 +4,13 @@ The goal is to write a small webapp that find the available spots for a one park
 You will have to pass the first unit tests below and write all needed tests you need, using the TDD workflow.
 ## Initialize the project
 
-1. Create the rails app
-`rails new 12p5-test`
+1. Create the rails app  
+`rails new 12p5-test`  
 
-2. Generate the models
-`rails g model Parking name address status picture price_per_cm:integer`
-`rails g model Place name status parking:references`
-`rails g model DividedPlace name status place:references`
+2. Generate the models  
+`rails g model Parking name address status picture price_per_cm:integer`  
+`rails g model Place name status parking:references`  
+`rails g model DividedPlace name status place:references`  
 
 3. Add these lines in the db/seed.rb
 ```ruby
