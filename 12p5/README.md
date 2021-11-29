@@ -1,18 +1,31 @@
 # 12p5 - Technical test
 
-The goal is to write a small webapp that find the available spots for a one parking place and to display them. The user should be able to book a divided place in an available spot.
+The goal is to write a small webapp that find the available spots for a parking place and to display them. The user should be able to book a divided place in an available spot.
 You will have to pass the first unit tests below and write all needed tests you need, using the TDD workflow.
 ## Initialize the project
 
-1. Create the rails app  
-`rails new 12p5-test`  
+1. Create the rails app skipping tests  
+`rails new 12p5-test -T`  
 
-2. Generate the models  
+2. Setup RSpec  
+Go to the Gemfile and add the RSpec gem in the development and test group:  
+```ruby
+group :development, :test do  
+  gem 'rspec-rails'
+end
+```  
+Then in your terminal, run  
+`bundle install` 
+
+Then setup RSpec in your app by running  
+`rails generate rspec:install`  
+
+3. Generate the models  
 `rails g model Parking name address status picture price_per_cm:integer`  
 `rails g model Place name status parking:references`  
 `rails g model DividedPlace name status place:references`  
 
-3. Add these lines in the db/seed.rb
+4. Add these lines in the db/seed.rb to populate your database
 ```ruby
 Parking.create!(
   name: 'Parking 12.5 x Gardes 5',
@@ -21,4 +34,4 @@ Parking.create!(
   status: 'available',
   picture: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
 )
-```
+```  
