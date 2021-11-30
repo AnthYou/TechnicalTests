@@ -60,7 +60,11 @@ RSpec.describe DividedPlace, type: :model do
         picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
       )
       parking.save
-      subject.parking = parking
+      subject.place = Place.new(
+        name: 'Sample name',
+        status: 'available',
+        parking: parking
+      )
       subject.save
 
       expect(subject.parking).to eq(parking)
