@@ -1,7 +1,7 @@
 # 12p5 - Technical test
 
-The goal is to write a small webapp that find the available spots for a parking place and to display them. The user should be able to book a divided place in an available spot.
-You will have to pass the first unit tests below and write all needed tests you need, using the TDD workflow.
+The goal is to write a small webapp that find the available spots for every parking place and to display them. The user should be able to book a divided place in an available spot.  
+You will have to pass the first unit tests below and write all needed tests you need, using the TDD workflow.  
 ## Initialize the project
 
 ### 1. Create the rails app skipping tests  
@@ -132,10 +132,14 @@ RSpec.describe Parking, type: :model do
     end
 
     it 'should have many divided places' do
-      divided_place = Place.new(
+      divided_place = DividedPlace.new(
         name: 'Sample name',
         status: 'available',
-        parking: subject
+        place: Place.new(
+          name: 'Sample name',
+          status: 'available',
+          parking: subject
+        )
       )
       divided_place.save
 
@@ -144,3 +148,146 @@ RSpec.describe Parking, type: :model do
   end
 end
 ```  
+  
+spec/models/place_spec.rb  
+```ruby
+require 'rails_helper'
+
+RSpec.describe Place, type: :model do
+  subject do
+    described_class.new(
+      name: 'Sample name',
+      status: 'available',
+      parking: Parking.new(
+        name: 'Sample name',
+        address: 'Sample address',
+        status: 'available',
+        picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
+      )
+    )
+  end
+
+  describe 'Validations' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without a name' do
+      subject.name = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without a status' do
+      subject.status = nil
+      expect(subject).not_to be_valid
+    end
+  end
+
+  describe 'Associations' do
+    it 'should belong to a parking' do
+      parking = Parking.new(
+        name: 'Sample name',
+        address: 'Sample address',
+        status: 'available',
+        picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
+      )
+      parking.save
+      subject.parking = parking
+      subject.save
+
+      expect(subject.parking).to eq(parking)
+    end
+
+    it 'should have many divided places' do
+      divided_place = DividedPlace.new(
+        name: 'Sample name',
+        status: 'available',
+        place: subject
+      )
+      divided_place.save
+
+      expect(subject.divided_places).to eq([divided_place])
+    end
+  end
+end
+```  
+  
+spec/models/divided_place_spec.rb  
+```ruby
+require 'rails_helper'
+
+RSpec.describe DividedPlace, type: :model do
+  subject do
+    described_class.new(
+      name: 'Sample name',
+      status: 'available',
+      place: Place.new(
+        name: 'Sample name',
+        status: 'available',
+        parking: Parking.new(
+          name: 'Sample name',
+          address: 'Sample address',
+          status: 'available',
+          picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
+        )
+      )
+    )
+  end
+
+  describe 'Validations' do
+    it 'is valid with valid attributes' do
+      expect(subject).to be_valid
+    end
+
+    it 'is not valid without a name' do
+      subject.name = nil
+      expect(subject).not_to be_valid
+    end
+
+    it 'is not valid without a status' do
+      subject.status = nil
+      expect(subject).not_to be_valid
+    end
+  end
+
+  describe 'Associations' do
+    it 'should belong to a place' do
+      place = Place.new(
+        name: 'Sample name',
+        status: 'available',
+        parking: Parking.new(
+          name: 'Sample name',
+          address: 'Sample address',
+          status: 'available',
+          picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
+        )
+      )
+      subject.place = place
+      subject.save
+
+      expect(subject.place).to eq(place)
+    end
+
+    it 'should belong to a parking' do
+      parking = Parking.new(
+        name: 'Sample name',
+        address: 'Sample address',
+        status: 'available',
+        picture_url: 'https://drive.google.com/uc?id=1zcO9ERuqsUVGgXBa0TCNdVgLvVHRvuzf'
+      )
+      parking.save
+      subject.parking = parking
+      subject.save
+
+      expect(subject.parking).to eq(parking)
+    end
+  end
+end
+```  
+
+### 6. Next steps
+Make the tests pass, draw the routes, add controller actions with needed specs and add views.  
+You can use Bootstrap for styling, but feel free to create your own css classes!  
+Should you need any information or answers to your questions, write me [a mail](you.anthony@yahoo.com).  
+
+### Good luck!
