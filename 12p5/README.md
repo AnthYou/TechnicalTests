@@ -285,7 +285,7 @@ RSpec.describe DividedPlace, type: :model do
 end
 ```  
 
-### 6. Next steps
+## Next steps
 Make the tests pass, draw the routes, add controller actions with needed specs and add views.  
 You can use Bootstrap for styling, but feel free to create your own css classes!  
 Should you need any information or answers to your questions, write me [a mail](you.anthony@yahoo.com).  
