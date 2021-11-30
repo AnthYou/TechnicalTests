@@ -1,6 +1,6 @@
 # 12p5 - Technical test
 
-The goal is to write a small webapp that find the available spots for every parking place and to display them. Users should be able to book a divided place in an available spot, making the number of remaining spot availables going down.  
+The goal is to write a small webapp that find the available spots for every parking place and to display them. Users should be able to book a divided place in an available spot, decreasing the number of remaining spots available.  
 You will have to pass the first unit tests below and write all needed tests you need, using the TDD workflow.  
 ## Initialize the project
 
