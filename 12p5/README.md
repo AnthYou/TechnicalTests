@@ -284,6 +284,8 @@ RSpec.describe DividedPlace, type: :model do
   end
 end
 ```  
+Run the tests with the command  
+`rails spec`  
 
 You can find all the needed files in this repo.  
 
